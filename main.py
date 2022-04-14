@@ -2,34 +2,30 @@ import random
 import sys
 
 import pygame
+from pygame._sprite import spritecollideany
 from pygame.sprite import Sprite, Group
 from pygame.surface import Surface
 
+
 class Explosion(Sprite):
-    #when creating a subclass, make sure you override the correct methods with the correct names
-    def __init__(self, *groups):
+    # when creating a subclass, make sure you override the correct methods with the correct names
+    def __init__(self, x, y, *groups):
         super().__init__(*groups)
         self.image = Surface((25, 25))
-        self.image.fill((200, 200, 200))
-        self.rect = self.image.get_rect().move(0, 300)
-
-    def draw(self, surface):
-        surface.blit(self.image, self.rect)
+        self.image.fill((0, 0, 200))
+        self.rect = self.image.get_rect().move(x, y)
 
     def update(self):
-        self.rect.left += 1
+        pass
 
 
 class Player(Sprite):
-    #when creating a subclass, make sure you override the correct methods with the correct names
+    # when creating a subclass, make sure you override the correct methods with the correct names
     def __init__(self, *groups):
         super().__init__(*groups)
         self.image = Surface((25, 25))
         self.image.fill((200, 200, 200))
         self.rect = self.image.get_rect().move(0, 300)
-
-    def draw(self, surface):
-        surface.blit(self.image, self.rect)
 
     def update(self):
         self.rect.left += 1
@@ -60,13 +56,14 @@ class GameSetup:
         pygame.display.init()
         self.screen = pygame.display.set_mode((1024, 768))
         pygame.display.set_caption("Cave Seeker")
-        self.player = Player() # create an instance of the player class
+        self.player = Player()  # create an instance of the player class
         self.player_group = Group()
         self.player_group.add(self.player)
-        self.enemy = Group() # Create a collection of bad guys
+        self.enemy = Group()  # Create a collection of bad guys
 
         for i in range(15):
-            self.enemy.add(Enemy(random.randrange(0, 1024), random.randrange(0, 768))) # add enemies to the bad guy collection, 15 of them.
+            self.enemy.add(Enemy(random.randrange(0, 1024),
+                                 random.randrange(0, 768)))  # add enemies to the bad guy collection, 15 of them.
 
     def mainLoop(self):
         while True:
@@ -78,6 +75,10 @@ class GameSetup:
     def update(self):
         self.player_group.update()
         self.enemy.update()
+        if self.player.alive() and (collided_with := spritecollideany(self.player, self.enemy)) is not None:
+            self.player.kill()
+            collided_with.kill()
+            self.player_group.add(Explosion(self.player.rect.left, self.player.rect.top))
 
     def draw(self):
         self.screen.fill((0, 0, 0))
@@ -87,5 +88,3 @@ class GameSetup:
 
 if __name__ == '__main__':
     GameSetup().mainLoop()
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
