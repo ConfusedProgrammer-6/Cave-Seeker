@@ -1,6 +1,6 @@
 import pygame
 from Enviroment import Tile
-from settings import TILE_SIZE,WINDOW_WIDTH
+from settings import TILE_SIZE, WINDOW_WIDTH
 from Player import Player
 
 
@@ -18,6 +18,9 @@ class Level:
         self.player = pygame.sprite.GroupSingle()
 
         # image = Tile.Tile()
+        self.draw_level(layout)
+
+    def draw_level(self, layout):
         for row_index, row in enumerate(layout):
             for column_index, cell in enumerate(row):
                 x = column_index * TILE_SIZE
@@ -32,6 +35,7 @@ class Level:
                 if cell == 'P':
                     player_sprite = Player.Player((x, y))
                     self.player.add(player_sprite)
+
     def scroll_x(self):
         player = self.player.sprite
         player_x = player.rect.centerx
@@ -46,12 +50,40 @@ class Level:
         else:
             self.world_shift = 0
             player.speed = 8
+
+    # TODO create a separate class for collision detection
+    def horizontal_collision(self):
+        player = self.player.sprite
+        player.rect.x += player.direction.x * player.speed
+        for sprite in self.tiles.sprites():
+            if sprite.rect.colliderect(player.rect):
+                if player.direction.x < 0:
+                    player.rect.left = sprite.rect.right
+                if player.direction.x > 0:
+                    player.rect.right = sprite.rect.left
+
+    def vertical_collision(self):
+
+        player = self.player.sprite
+        player.apply_gravity()
+
+        for sprite in self.tiles.sprites():
+            if sprite.rect.colliderect(player.rect):
+                if player.direction.y > 0:
+                    player.rect.bottom = sprite.rect.top
+                    player.direction.y = 0
+                if player.direction.y < 0:
+                    player.rect.top = sprite.rect.bottom
+                    player.direction.y = 0
+
     def run(self):
-        #World generation
+        # World generation
         self.tiles.update(self.world_shift)
         self.tiles.draw(self.display_surface)
-
-        # create player sprites
-        self.player.update()
-        self.player.draw(self.display_surface)
         self.scroll_x()
+
+        # create player sprites & check for collisions
+        self.player.update()
+        self.horizontal_collision()
+        self.vertical_collision()
+        self.player.draw(self.display_surface)

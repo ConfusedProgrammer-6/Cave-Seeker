@@ -85,10 +85,7 @@ class GameSetup:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_F3:
                     pass
-                # elif event.key == pygame.K_LEFT:
-                #     self.player.move_left()
-                # elif event.key == pygame.K_RIGHT:
-                #     self.player.move_right()
+
 
     def update(self):
         #self.player_group.update(key.get_pressed())
