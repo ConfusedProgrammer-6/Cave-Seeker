@@ -52,9 +52,9 @@ class GameSetup:
         self.screen = pygame.display.set_mode((settings.WINDOW_WIDTH, settings.WINDOW_HEIGHT))
         pygame.display.set_caption("Cave Seeker")
 
-        self.player = Player.Player()  # create an instance of the player class
-        self.player_group = Group()
-        self.player_group.add(self.player)
+        #self.player = Player.Player()  # create an instance of the player class
+        #self.player_group = Group()
+        #self.player_group.add(self.player)
         self.level = Level.Level(settings.LEVEL_1_MAP, self.screen)
 
         self.enemy = Group()  # Create a collection of bad guys
@@ -91,21 +91,21 @@ class GameSetup:
                 #     self.player.move_right()
 
     def update(self):
-        self.player_group.update(key.get_pressed())
+        #self.player_group.update(key.get_pressed())
         self.enemy.update()
         # self.viewport.update(self.player)
-        self.check_collisions()
+        # self.check_collisions()
 
-    def check_collisions(self):
-        if self.player.alive() and (collided_with := spritecollideany(self.player, self.enemy)) is not None:
-            self.player.kill()
-            collided_with.kill()
-            self.player_group.add(Explosion(self.player.rect.left, self.player.rect.top))
+    # def check_collisions(self):
+    #     if self.player.alive() and (collided_with := spritecollideany(self.player, self.enemy)) is not None:
+    #         self.player.kill()
+    #         collided_with.kill()
+    #         self.player_group.add(Explosion(self.player.rect.left, self.player.rect.top))
 
     def draw(self):
         self.screen.fill((0, 0, 0))
         self.static_sprites.draw(self.screen)
-        self.player_group.draw(self.screen)
+        #self.player_group.draw(self.screen)
         self.enemy.draw(self.screen)
 
 

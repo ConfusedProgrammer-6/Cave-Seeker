@@ -13,8 +13,7 @@ class Tile(Sprite):
         # self.rect.bottom = settings.WINDOW_HEIGHT
         # assert self.rect.width == settings.WORLD_WIDTH
 
-
-    def set_image_Color(self,color):
+    def set_image_Color(self, color):
         self.image.fill(color)
 
     def update(self, x_shift):
