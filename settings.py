@@ -1,4 +1,4 @@
-WINDOW_WIDTH = 1024
+WINDOW_WIDTH = 2160
 #Collect all totems to open up gate and advance to next leve
 # O = Totem
 # X = Dirt Tile
@@ -9,12 +9,12 @@ WINDOW_WIDTH = 1024
 LEVEL_1_MAP = [
     '                                        --0--                      ',
     '      O                          XXXX              0               ',
-    'XX   ---                                         -----             ',
-    'XX            -0-             ----      0                          ',
-    'XXX-   -               ---    XXXX     XXXX                        ',
-    'xxx-      ---         -XXX                  XXXXX            0     ',
-    'XXXXXXX          -----                                     XXXX    ',
-    'XXX            -X                     0              0             ',
+    '--   ---                                         -----             ',
+    '  -            -0-             ----      0                          ',
+    '   -                  ---    XXXX     XXXX                        ',
+    '          ---                              XXXXX            0     ',
+    '    ---         ------                                     XXXX    ',
+    '              --X                     0              0             ',
     ' P           -XXX    0               ---          ---------      []',
     '-------------XXXX----------XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
     'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
