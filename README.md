@@ -21,4 +21,5 @@ The objective is simple. Although you might be frustrated and will have to resta
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 * Dr. Shaffer 
-* [Warped caves pixel art pack] (https://opengameart.org/content/warped-caves-pixel-art-pack)
+* [Warped caves pixel art pack](https://opengameart.org/content/warped-caves-pixel-art-pack)
+
