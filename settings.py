@@ -1,30 +1,24 @@
+from os import walk
+
+import pygame
+
 WINDOW_WIDTH = 1920
-# Collect all totems to open up gate and advance to next leve
-# O = Totem
-# X = Dirt Tile
-# - = Grass Tile
-# P = Player
-# E = Enemy
-# [] = End Gate
-LEVEL_1_MAP = [
-    '                                        --0--                      ',
-    '                                                                   ',
-    ' P     O                          XXXX              0              ',
-    '                                                                   ',
-    '--   ---                                         -----             ',
-    '              -0-             ----      0                          ',
-    '                                                                   ',
-    '  -                  ---    XXXX     XXXX                          ',
-    '           ---                              XXXXX            0     ',
-    '                                                                   ',
-    '    ---         ------                                     XXXX    ',
-    '                                                                   ',
-    '                                      0              0             ',
-    '                                                                   ',
-    '             ----   0               ---          ---------      [] ',
-    '-------------XXXX-------------------XXX----------XXXXXXXXX---------',
-    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-]
-TILE_SIZE = 64
-WINDOW_HEIGHT = TILE_SIZE * len(LEVEL_1_MAP)
-WORLD_WIDTH = 4 * WINDOW_WIDTH
+VERTICAL_TILE_NUMBER = 15
+TILE_SIZE = 16
+WINDOW_HEIGHT = 800
+BLACK = (0, 0, 0, 0)
+LAVENDER = (129, 81, 107)
+WIST = (188, 167, 232)
+
+def import_folder(current_path):
+    surface_list = []
+
+    for _, __, image_names in walk(current_path):
+        for image in image_names:
+
+            full_path = current_path + '/' + image
+            image_surface = pygame.image.load(full_path).convert_alpha()
+            image_surface = pygame.transform.scale(image_surface, (128, 128))
+            image_rect = image_surface.get_bounding_rect(min_alpha=5)
+            surface_list.append(image_surface)
+    return surface_list
